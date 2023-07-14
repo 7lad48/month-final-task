@@ -3,6 +3,7 @@ import mainStyles from "../Counter.module.css";
 import styles from "./CounterSettings.module.css";
 import Button from "../../Button";
 import Input from "../../Input";
+import {StatusType} from "../Counter";
 
 type CounterSettingsType = {
     onChangeMaxValueHandler: (e: ChangeEvent<HTMLInputElement>) => void
@@ -10,6 +11,7 @@ type CounterSettingsType = {
     onChangeStartValueHandler: (e: ChangeEvent<HTMLInputElement>) => void
     onChangedStartValue: number
     setParams: () => void
+    status: StatusType
 }
 const CounterSettings: FC<CounterSettingsType> = ({
                                                       onChangeMaxValueHandler,
@@ -17,6 +19,7 @@ const CounterSettings: FC<CounterSettingsType> = ({
                                                       onChangeStartValueHandler,
                                                       onChangedStartValue,
                                                       setParams,
+                                                      status,
                                                   }) => {
     return (
         <div className={mainStyles.body}>
@@ -37,7 +40,7 @@ const CounterSettings: FC<CounterSettingsType> = ({
                 </div>
             </div>
             <div className={mainStyles.counterButtons}>
-                <Button name={'set'} handler={setParams} style={mainStyles.button} disabled={false}/>
+                <Button name={'set'} handler={setParams} style={mainStyles.button} disabled={status !=="changing"}/>
             </div>
         </div>
     );
