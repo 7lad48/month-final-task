@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, useState} from 'react';
+import React, {FC} from 'react';
 import mainStyles from "../Counter.module.css";
 import styles from "./CounterSettings.module.css";
 import Button from "../../Button";
@@ -6,20 +6,24 @@ import Input from "../../Input";
 import {StatusType} from "../Counter";
 
 type CounterSettingsType = {
-    onChangeMaxValueHandler: (e: ChangeEvent<HTMLInputElement>) => void
+    setOnChangeMaxValue: (value: number)=> void
     onChangedMaxValue: number
-    onChangeStartValueHandler: (e: ChangeEvent<HTMLInputElement>) => void
+    setOnChangeStartValueHandler: (value: number)=> void
     onChangedStartValue: number
     setParams: () => void
     status: StatusType
+    wrongStartValue: boolean
+    wrongMaxValue: boolean
 }
 const CounterSettings: FC<CounterSettingsType> = ({
-                                                      onChangeMaxValueHandler,
+                                                      setOnChangeMaxValue,
                                                       onChangedMaxValue,
-                                                      onChangeStartValueHandler,
+                                                      setOnChangeStartValueHandler,
                                                       onChangedStartValue,
                                                       setParams,
                                                       status,
+                                                      wrongStartValue,
+                                                      wrongMaxValue
                                                   }) => {
     return (
         <div className={mainStyles.body}>
@@ -28,15 +32,19 @@ const CounterSettings: FC<CounterSettingsType> = ({
                     <div className={styles.settingName}>max value:</div>
                     <Input
                         type={'number'}
-                        onChangeHandler={onChangeMaxValueHandler}
-                        controlledValue={onChangedMaxValue}/>
+                        setValueHandler={setOnChangeMaxValue}
+                        controlledValue={onChangedMaxValue}
+                        wrongMaxValue={wrongMaxValue}
+                    />
                 </div>
                 <div className={styles.settingLine}>
                     <div className={styles.settingName}>start value:</div>
                     <Input
                         type={'number'}
-                        onChangeHandler={onChangeStartValueHandler}
-                        controlledValue={onChangedStartValue}/>
+                        setValueHandler={setOnChangeStartValueHandler}
+                        controlledValue={onChangedStartValue}
+                        wrongStartValue={wrongStartValue}
+                    />
                 </div>
             </div>
             <div className={mainStyles.counterButtons}>

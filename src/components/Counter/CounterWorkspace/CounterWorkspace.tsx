@@ -27,7 +27,6 @@ const CounterWorkspace: FC<CounterType> = ({
                      :  status === 'changed'
                          ? <div className={`${currentCountValue === endCount ? styles.limit : ''} ${styles.counterBoard} ${styles.bigText}`}>{currentCountValue}</div>
                          : <div className={`${styles.counterBoard} ${styles.limit}`}>Incorrect value!</div>
-
             }
             <div className={styles.counterButtons}>
                 <Button name={'inc'} handler={increase} style={styles.button}
