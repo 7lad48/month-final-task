@@ -4,6 +4,8 @@
 }
 .settingLine{
     width:100%;
+    max-width: 300px;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     gap: 10px;
@@ -11,9 +13,12 @@
     padding: 0 5px;
 }
 .settingLine input{
+    align-self: center;
+    padding: 5px;
     border-radius: 5px;
     text-align: center;
     border:1px solid #fff;
+    max-width: 120px;
 }
 .settingLine input:focus{
     outline: none;
