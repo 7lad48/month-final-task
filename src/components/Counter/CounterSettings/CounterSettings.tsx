@@ -6,7 +6,7 @@ import Input from "../../Input";
 import {StatusType} from "../Counter";
 
 type CounterSettingsType = {
-    setOnChangeMaxValue: (value: number)=> void
+    setOnChangeMaxValueHandler: (value: number)=> void
     onChangedMaxValue: number
     setOnChangeStartValueHandler: (value: number)=> void
     onChangedStartValue: number
@@ -16,7 +16,7 @@ type CounterSettingsType = {
     wrongMaxValue: boolean
 }
 const CounterSettings: FC<CounterSettingsType> = ({
-                                                      setOnChangeMaxValue,
+                                                      setOnChangeMaxValueHandler,
                                                       onChangedMaxValue,
                                                       setOnChangeStartValueHandler,
                                                       onChangedStartValue,
@@ -32,7 +32,7 @@ const CounterSettings: FC<CounterSettingsType> = ({
                     <div className={styles.settingName}>max value:</div>
                     <Input
                         type={'number'}
-                        setValueHandler={setOnChangeMaxValue}
+                        setValueHandler={setOnChangeMaxValueHandler}
                         controlledValue={onChangedMaxValue}
                         wrongMaxValue={wrongMaxValue}
                     />

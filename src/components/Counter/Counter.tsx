@@ -16,38 +16,50 @@ export const Counter: FC<CounterType> = ({
                                              endCountVal,
                                              countRange
                                          }) => {
-    const [startCount, setStartCount] = useState(startCountVal);
-    const [endCount, setEndCount] = useState(endCountVal);
-    const [currentCountValue, setCurrentCountValue] = useState(startCount);
+    // const [startCount, setStartCount] = useState(startCountVal);
+    // const [endCount, setEndCount] = useState(endCountVal);
+    const localStorageData = localStorage.getItem('counterValues');
+    const counterSavedValues = localStorageData ? JSON.parse( localStorageData ) : null;
+
+    const [startCount, setStartCount] = useState<number>(()=> counterSavedValues ? counterSavedValues.startValue : startCountVal);
+    const [endCount, setEndCount] = useState<number>(()=> counterSavedValues ? counterSavedValues.maxValue : endCountVal);
+    const [currentCountValue, setCurrentCountValue] = useState<number>(startCount);
     const increase = () => setCurrentCountValue((prev) => prev + countRange > endCount ? prev : prev + countRange);
     const reset = () => setCurrentCountValue((prev) => prev > startCount ? startCount : prev);
 
     const [onChangedMaxValue, setOnChangedMaxValue] = useState<number>(endCount);
     const [onChangedStartValue, setOnChangedStartValue] = useState<number>(startCount);
 
-    const [status, setStatus] = useState<StatusType>('changed')
+    const [status, setStatus] = useState<StatusType>('changed');
     const wrongStartValue = onChangedStartValue < 0 || onChangedStartValue >= onChangedMaxValue;
     const wrongMaxValue = onChangedMaxValue <= 0 || onChangedMaxValue <= onChangedStartValue;
+
     useEffect(()=> {
         if(wrongStartValue || wrongMaxValue) {
-            setStatus('error')
+            setStatus('error');
         } else if(startCount !== onChangedStartValue || endCount !== onChangedMaxValue){
-            setStatus('changing')
+            setStatus('changing');
         } else if(startCount === onChangedStartValue || endCount === onChangedMaxValue) {
-            setStatus('changed')
+            setStatus('changed');
         }
-    }, [onChangedMaxValue, onChangedStartValue])
+    }, [onChangedMaxValue, onChangedStartValue]);
 
     const setParams = () => {
         setStartCount(onChangedStartValue);
         setEndCount(onChangedMaxValue);
         setCurrentCountValue(onChangedStartValue);
-        setStatus('changed')
+        setStatus('changed');
+
+        localStorage.setItem('counterValues', JSON.stringify({
+            startValue: onChangedStartValue,
+            maxValue: onChangedMaxValue,
+        }));
+
     }
     return (
         <div className={styles.counterMain}>
             <CounterSettings
-                setOnChangeMaxValue={setOnChangedMaxValue}
+                setOnChangeMaxValueHandler={setOnChangedMaxValue}
                 onChangedMaxValue={onChangedMaxValue}
                 setOnChangeStartValueHandler={setOnChangedStartValue}
                 onChangedStartValue={onChangedStartValue}
