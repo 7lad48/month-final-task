@@ -15,6 +15,7 @@ const Input: FC<InputType> = ({
                                   wrongStartValue,
                                   wrongMaxValue,
                               }) => {
+    // ???
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setValueHandler(Math.round(e.target.valueAsNumber));
     }

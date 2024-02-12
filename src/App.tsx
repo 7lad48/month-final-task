@@ -6,6 +6,7 @@ function App() {
     return (
         <div className="App">
             <Counter startCountVal={0} endCountVal={5} countRange={1}/>
+            <Counter startCountVal={10} endCountVal={20} countRange={1}/>
         </div>
     );
 }
